@@ -1,0 +1,54 @@
+# Default configuration for Wayfinder agent training
+
+agent:
+  max_actions: 1000
+  latent_dim: 256
+  buffer_size: 200000
+  device: cpu  # or cuda
+
+perception:
+  latent_dim: 256
+  conv_channels: [32, 64, 128]
+  conv_kernel: 3
+
+world_model:
+  latent_dim: 256
+  action_embed_dim: 32
+  hidden_dim: 256
+  lr: 0.0001
+  buffer_size: 200000
+  batch_size: 64
+  entropy_reg: 0.01
+  fwd_loss_weight: 0.5
+
+intrinsic_reward:
+  w_extrinsic: 1.0
+  w_novelty: 0.3
+  w_curiosity: 0.2
+  novelty_decay: 0.95
+  curiosity_clip: 10.0
+  score_baseline: 0.0
+
+planner:
+  max_depth: 5
+  max_simulations: 50
+  exploration_constant: 1.414
+  discount: 0.95
+
+action_head:
+  temperature: 0.5
+  epsilon: 0.15
+  coord_head_channels: [32, 16]
+
+training:
+  mode: online  # or offline
+  epochs: 50
+  batch_size: 64
+  lr: 0.0001
+  eval_interval: 10
+  save_interval: 20
+
+eval:
+  games: ["ls20", "ls21", "ls22"]
+  max_actions_per_level: 1000
+  output_dir: "eval/results"
